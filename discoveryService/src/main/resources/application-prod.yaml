@@ -1,0 +1,7 @@
+app:
+  name: Eureka Discovery
+  description: Eureka Discovery
+  version: 1.0.0
+
+server:
+  port: 8761

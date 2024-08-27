@@ -28,6 +28,16 @@ services:
     networks:
       - mysql
     restart: always
+  eureka_service:
+    build: ./discoveryService
+    container_name: eureka-service
+    environment:
+      -SPRING_PROFILES_ACTIVE=prod
+    ports:
+      - "8761:8761"
+    networks:
+      - mysql
+      - mongo
   patient_service:
     build: ./patient-service
     container_name: patient-service
@@ -37,6 +47,7 @@ services:
       - "8100:8100"
     depends_on:
       - mysql
+      - eureka_service
     networks:
       - mysql
     restart: always
@@ -49,6 +60,7 @@ services:
       - "8200:8200"
     depends_on:
       - mongo
+      - eureka_service
     networks:
       - mongo
     restart: always
@@ -62,6 +74,7 @@ services:
     depends_on:
       - mysql
       - mongo
+      - eureka_service
     networks:
       - mysql
       - mongo
